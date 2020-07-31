@@ -119,11 +119,11 @@ namespace SA
 
                 if (moveAmount > 0 || onGround == false)
                 {
-                    rigid.drag = 0;
+                   rigid.drag = 0;
                 }
                 else
                 {
-                    rigid.drag = 4;
+                  // rigid.drag = 4;
                 }
 
                 float targetSpeed = moveSpeed;
@@ -132,6 +132,8 @@ namespace SA
 
                 if (onGround)
                     rigid.velocity = moveDir * (targetSpeed * moveAmount);
+               /* if (!onGround)
+                    rigid.velocity = moveDir * (targetSpeed * moveAmount);*/
 
 
                 jumping();
@@ -368,9 +370,10 @@ namespace SA
                     }
 
                     skipGroundCheck = true;
-                    Vector3 targetVel = transform.forward * 7;
+                    Vector3 targetVel = transform.up * 7;
+                    //Vector3 targetVel = transform.forward * 7;
 
-                    targetVel.y = 6;
+                    //targetVel.y = 6;
                     rigid.velocity = targetVel;
                     jumpAmount++;
 
@@ -400,9 +403,10 @@ namespace SA
                     }
 
                     skipGroundCheck = true;
-                    Vector3 targetVel = transform.forward * 7;
+                    //Vector3 targetVel = transform.forward * 7;
+                    Vector3 targetVel = transform.up * 7;
 
-                    targetVel.y = 6;
+                    //targetVel.y = 6;
                     rigid.velocity = targetVel;
                     jumpAmount++;
 
