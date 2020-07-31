@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ namespace SA
         public float horizontal;
         public float moveAmount;
         public Vector3 moveDir;
+
+        public bool useGravity = true;
+     
 
         [Header("Stats")]
         public float moveSpeed = 5;
@@ -113,6 +117,11 @@ namespace SA
         }
         public void FixedTick(float d)
         {
+
+            // gravity 
+            rigid.useGravity = false;
+            if (useGravity) rigid.AddForce(Physics.gravity * (rigid.mass * rigid.mass));
+
             delta = d;
             if (!inCutscene)
             { 
@@ -130,9 +139,20 @@ namespace SA
                 if (run)
                     targetSpeed = runSpeed;
 
+
+                //movement
                 if (onGround)
                     rigid.velocity = moveDir * (targetSpeed * moveAmount);
-               /* if (!onGround)
+             
+
+
+                
+
+
+               // rigid.velocity =  moveDir * (targetSpeed * -moveAmount);
+               //rigid.useGravity
+
+                /*if (!onGround)
                     rigid.velocity = moveDir * (targetSpeed * moveAmount);*/
 
 
@@ -370,10 +390,10 @@ namespace SA
                     }
 
                     skipGroundCheck = true;
-                    Vector3 targetVel = transform.up * 7;
+                    Vector3 targetVel = transform.forward * 5;
                     //Vector3 targetVel = transform.forward * 7;
 
-                    //targetVel.y = 6;
+                    targetVel.y = 6;
                     rigid.velocity = targetVel;
                     jumpAmount++;
 
@@ -404,10 +424,11 @@ namespace SA
 
                     skipGroundCheck = true;
                     //Vector3 targetVel = transform.forward * 7;
-                    Vector3 targetVel = transform.up * 7;
+                    Vector3 targetVel = transform.forward * 5;
 
-                    //targetVel.y = 6;
-                    rigid.velocity = targetVel;
+                    targetVel.y = 6;
+                   rigid.velocity = targetVel;
+                    //rigid.velocity = moveDir * (targetSpeed * moveAmount);
                     jumpAmount++;
 
                 }
