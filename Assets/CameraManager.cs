@@ -74,6 +74,8 @@ lerp = false;
          
         }
 
+
+
         public void Init(Transform t)
         {
             target = t;
