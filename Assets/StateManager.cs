@@ -461,7 +461,8 @@ namespace SA
             float dis = toGround + 0.1f;
 
             RaycastHit hit;
-           
+
+
 
             if(Physics.Raycast(orign,dir,out hit, dis, ignoreLayers))
             {
@@ -469,7 +470,7 @@ namespace SA
                 Vector3 targetPosition = hit.point;
                 transform.position = targetPosition;
             }
-
+            
             if (r && !prevGround)
             {
 
