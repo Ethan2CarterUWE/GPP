@@ -27,7 +27,7 @@ namespace SA
             {
                 for (int i = 0; i < nodeCount - 1; i++)
                 {
-                    Debug.Log("wit");
+                    //Debug.Log("wit");
                     Debug.DrawLine(nodes[i], nodes[i + 1], Color.blue);
                 }
             }
