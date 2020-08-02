@@ -24,7 +24,11 @@ namespace SA
         {
 
             //thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
+
+
+
             //smooths the transitions of the camera between points
+            //EITHER HAVE THIS ONE OR THE ONE ABOVE WHICH ISNT AS SMOOTH BUT ITS CLEANER
             if (smoothMove)
             {
                 thisTransform.position = lastPosition;

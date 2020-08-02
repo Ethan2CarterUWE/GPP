@@ -373,7 +373,7 @@ namespace SA
             //if (jumpAmount == 1 && !onGround)
             if (doubleJump && !onGround && jumpAmount < 2)
             {
-                if (Input.GetKeyDown(KeyCode.Space) )
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
                 {
                     anim.SetBool("Jumping", true);
 
@@ -406,7 +406,7 @@ namespace SA
             {
                 jumpAmount = 0;
 
-                if (Input.GetKeyDown(KeyCode.Space) )
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
                 {
                     anim.SetBool("Jumping", true);
 
@@ -422,6 +422,7 @@ namespace SA
 
                     }
 
+                 
                     skipGroundCheck = true;
                     //Vector3 targetVel = transform.forward * 7;
                     Vector3 targetVel = transform.forward * 5;

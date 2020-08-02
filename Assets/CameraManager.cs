@@ -95,19 +95,21 @@ lerp = false;
             float v = Input.GetAxis("Mouse Y");
 
             //controller
-            //float c_h = Input.GetAxis("RightAxis X");
-           // float c_v = Input.GetAxis("RightAxis Y");
+           float c_h = Input.GetAxis("RightAxis X");
+          float c_v = Input.GetAxis("RightAxis Y");
 
             float targetSpeed = mouseSpeed;
 
-            /*if (c_h != 0 || c_v != 0)
+            if (c_h != 0 || c_v != 0)
             {
                 h = c_h;
                 v = c_v;
                 targetSpeed = controllerSpeed;
-            }*/
+            }
 
             FollowTarget(d);
+
+
             HandleRotation(d, v, h, targetSpeed);
         }
 
