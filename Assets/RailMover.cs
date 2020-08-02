@@ -2,36 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RailMover : MonoBehaviour
+namespace SA
 {
-    public Rail rail;
-    public Transform lookAt;
-    public bool smoothMove = true;
-
-    private Transform thisTransform;
-    private Vector3 lastPosition;
-
-    private void Start()
+    public class RailMover : MonoBehaviour
     {
-        thisTransform = transform;
-        lastPosition = thisTransform.position;
-    }
+        public Rail rail;
+        public Transform lookAt;
+        public bool smoothMove = true;
 
-    //FixedUpdate over Update so that the camera does not wobble
-    private void FixedUpdate()
-    {
-        //smooths the transitions of the camera between points
-        if (smoothMove)
+        private Transform thisTransform;
+        private Vector3 lastPosition;
+
+        private void Start()
         {
-            thisTransform.position = lastPosition;
-            lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime);
-        }
-        else
-        {
-            thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
+            thisTransform = transform;
+            lastPosition = thisTransform.position;
         }
 
-        thisTransform.LookAt(lookAt.position);
-    }
+        //FixedUpdate over Update so that the camera does not wobble
+        private void FixedUpdate()
+        {
 
+            //thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
+            //smooths the transitions of the camera between points
+            if (smoothMove)
+            {
+                thisTransform.position = lastPosition;
+                lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime);
+            }
+            else
+            {
+                thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
+            }
+
+            thisTransform.LookAt(lookAt.position);
+        }
+
+    }
 }
+
+
