@@ -15,6 +15,10 @@ namespace SA
         public GameObject pivot;
         public GameObject target;
 
+        public GameObject managerthing;
+        public GameObject managerTarget;
+
+        SplineScript splinescr;
 
         private Transform thisTransform;
         private Vector3 lastPosition;
@@ -36,6 +40,8 @@ namespace SA
 
         private void Start()
         {
+            splinescr = GameObject.FindObjectOfType<SplineScript>();
+
             thisTransform = transform;
             lastPosition = thisTransform.position;
             Debug.Log("fuckoff");
@@ -47,15 +53,24 @@ namespace SA
         //FixedUpdate over Update so that the camera does not wobble
         private void LateUpdate()
         {
+            if (splinescr.okEthan)
+            {
+               /* managerthing.transform.position = Vector3.Lerp(managerthing.transform.position, managerTarget.transform.position, Time.deltaTime * speed);
+                managerthing.transform.rotation = Quaternion.Lerp(managerthing.transform.rotation, managerTarget.transform.rotation, Time.deltaTime * speed/2);*/
+
+            }
+
             Vector3 pos = new Vector3(0.0f, 0.56f, -2.860001f);
             if (exitTrue)
             {
                 pivot.transform.position = Vector3.Lerp(pivot.transform.position, target.transform.position, Time.deltaTime * speed);
-                pivot.transform.rotation = target.transform.rotation;
+                transform.rotation = Quaternion.Lerp(pivot.transform.rotation, target.transform.rotation, Time.deltaTime * speed);
+                //pivot.transform.rotation = target.transform.rotation;
+
+                // pivot.transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion.euler (0, 0, 0), Time.deltaTime * speed);
 
 
-
-
+                //if check1 becomes problem, just make check 2 the main
                 if (pivot.transform.position == target.transform.position)
                 {
                     check1 = true;
