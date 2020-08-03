@@ -191,7 +191,7 @@ lerp = false;
                 }
                 else
                 {
-                   smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
+                  smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
                     smoothY = Mathf.SmoothDamp(smoothY, v, ref smoothYvelocity, turnSmoothing);
                     testing1 = false;
                 }
@@ -208,10 +208,7 @@ lerp = false;
 
             }
 
-            if (lockon)
-            {
-
-            }
+       
 
             //lookangle is the actual angle of the camera, ie add/suubtract 90
             //lookAngle += smoothX * targetSpeed;

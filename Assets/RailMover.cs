@@ -10,6 +10,9 @@ namespace SA
         public Transform lookAt;
         public bool smoothMove = true;
 
+        public bool exitTrue = false;
+        public GameObject pivot;
+
         private Transform thisTransform;
         private Vector3 lastPosition;
 
@@ -29,17 +32,28 @@ namespace SA
 
             //smooths the transitions of the camera between points
             //EITHER HAVE THIS ONE OR THE ONE ABOVE WHICH ISNT AS SMOOTH BUT ITS CLEANER
-            if (smoothMove)
+            if (!exitTrue)
+            {
+                if (smoothMove)
+                {
+                    thisTransform.position = lastPosition;
+                    lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime);
+                }
+                else
+                {
+                    thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
+                }
+
+                thisTransform.LookAt(lookAt.position);
+            }
+            /*else if (exitTrue)
             {
                 thisTransform.position = lastPosition;
-                lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime);
-            }
-            else
-            {
-                thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
-            }
+                lastPosition = Vector3.Lerp(lastPosition, pivot.transform.position, Time.deltaTime);
+            }*/
 
-            thisTransform.LookAt(lookAt.position);
+
+
         }
 
     }

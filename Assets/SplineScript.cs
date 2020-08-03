@@ -11,16 +11,20 @@ namespace SA
     {
         public GameObject maincamera;
         public Collider collider1;
-        public bool test = false;
-        public bool shit = false;
+        public bool StopAim = false;
+     
 
         StateManager states;
+        RailMover railmove;
+        RailReturn railretur;
 
 
         // Start is called before the first frame update
         void Start()
         {
             states = GameObject.FindObjectOfType<StateManager>();
+            railmove = GameObject.FindObjectOfType<RailMover>();
+            railretur = GameObject.FindObjectOfType<RailReturn>();
 
         }
 
@@ -40,44 +44,48 @@ namespace SA
 
         private void OnTriggerExit(Collider other)
         {
-            if (test == true)
+            
+
+            if (other.transform.gameObject.tag == "Player")
             {
-                maincamera.GetComponent<RailMover>().enabled = false;
-                test = false;
-                Debug.Log("false");
-                shit = false;
+                Debug.Log("entering function");
 
-            }
+                if (maincamera.GetComponent<RailMover>().enabled == false)
+                 {
+                    Debug.Log("enabling rail mover");
+                    railretur.exitTrue = false;
 
-            while (!shit)
-            {
-                if (other.transform.gameObject.tag == "Player")
-                {
+                    maincamera.GetComponent<RailMover>().enabled = true;
+                    
+                         //               railmove.exitTrue = true;
 
-                    if (test == false)
-                    {
-                        maincamera.GetComponent<RailMover>().enabled = true;
-                        test = true;
-                        Debug.Log("true");
+                    //Enable a bool so i can use it to stop mouse movement in another script
+                     //Debug.Log("false");
+                 }
+                 else
+                 {
+                    Debug.Log("disabling rail mover");
 
-                        shit = true;
+                    maincamera.GetComponent<RailMover>().enabled = false;
+                    railretur.exitTrue = true;
 
-                    }
+                    //railmove.exitTrue = true;
+                    // Debug.Log("true");
+
                 }
-           
 
-              
 
-             
 
-              
+                /* maincamera.GetComponent<RailMover>().enabled = true;
+                    Debug.Log("true");*/
+                // any more issues, just make 2 colliders for entry and exit
 
-                //GameObject.FindGameObjectWithTag("Main Camera").GetComponent
-                Debug.Log("exit");
             }
+
+
+
+         
         }
-
-
 
 
 
