@@ -23,6 +23,8 @@ namespace SA
         RailMover railmove;
         RailReturn railretur;
         CameraManager cameraMan;
+        StateManager stateman;
+
 
         private int camLock = 0;
         // Start is called before the first frame update
@@ -32,6 +34,7 @@ namespace SA
             railmove = GameObject.FindObjectOfType<RailMover>();
             railretur = GameObject.FindObjectOfType<RailReturn>();
             cameraMan = GameObject.FindObjectOfType<CameraManager>();
+            stateman = GameObject.FindObjectOfType<StateManager>();
 
 
         }
@@ -39,6 +42,20 @@ namespace SA
         // Update is called once per frame
         void Update()
         {
+
+            /*if (okEthan)
+            {
+                if (stateman.moveAmount >= 0.1f)
+                {
+
+                }
+                else if (stateman.moveAmount == 0)
+                {
+                    maincamera.transform.parent = null;
+                    camHolder.transform.parent = maincamera.transform;
+                }
+            }*/
+       
 
         }
 
@@ -62,10 +79,12 @@ namespace SA
                  {
                     okEthan = true;
                     cameraMan.stopMovement = true;
-                    //camHolder.transform.position.x = camLock;
-                    maincamera.transform.parent = null;
+                 
+
+                    //COMMENT THIS OUT FOR MOVEMENTSPLINECHECK
+                   maincamera.transform.parent = null;
                     camHolder.transform.parent = maincamera.transform;
-                   //camHolder.transform.parent
+                    
 
 
 
@@ -88,7 +107,7 @@ namespace SA
                  else
                  {
                     Debug.Log("disabling rail mover");
-                    okEthan = false;
+                    
                     camHolder.transform.parent = null;
                     maincamera.transform.parent = pivotww.transform;
                     maincamera.GetComponent<RailMover>().enabled = false;

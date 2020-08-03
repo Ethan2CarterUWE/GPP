@@ -26,7 +26,6 @@ namespace SA
         private void FixedUpdate()
         {
 
-            //thisTransform.position = rail.ProjectPositionOnRail(lookAt.position);
 
 
 
@@ -37,7 +36,9 @@ namespace SA
                 if (smoothMove)
                 {
                     thisTransform.position = lastPosition;
-                    lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime);
+                    //lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime);
+                    // change multiplier on the end if you want faster cam
+                    lastPosition = Vector3.Lerp(lastPosition, rail.ProjectPositionOnRail(lookAt.position), Time.deltaTime * 4);
                 }
                 else
                 {
@@ -46,11 +47,7 @@ namespace SA
 
                 thisTransform.LookAt(lookAt.position);
             }
-            /*else if (exitTrue)
-            {
-                thisTransform.position = lastPosition;
-                lastPosition = Vector3.Lerp(lastPosition, pivot.transform.position, Time.deltaTime);
-            }*/
+         
 
 
 
