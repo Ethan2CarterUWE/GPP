@@ -51,28 +51,7 @@ namespace SA
         }
         private void Update()
         {
-            if(states.inNESWcam)
-            {
-                if (lerp)
-                {
-                   // lookAngle = lookAngle - leftAngle;
-
-
-
-                    from = transform.rotation;
-                    to = Quaternion.Euler(0, -90, 0);
-
-                    transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * 10);
-
-                    if (lookAngle >= 5500)
-lerp = false;
-
-                    //lookAngle -= 90;
-                    //lookAngle = Quaternion.Euler(lookAngle, , Time.deltaTime * 1);
-                    /* Quaternion wantedRotation = Quaternion.Euler(0, lookAngle, 0);
-                     transform.rotation = Quaternion.Lerp(transform.ro, wantedRotation, Time.deltaTime * 3);*/
-                }
-            }
+           
          
         }
 
@@ -113,8 +92,8 @@ lerp = false;
                 }
                 HandleRotation(d, v, h, targetSpeed);
             }
-          
 
+            transform.rotation = Quaternion.Euler(0, lookAngle, 0);
             FollowTarget(d);
 
 
@@ -134,73 +113,17 @@ lerp = false;
             if(turnSmoothing > 0)
             {
 
-                //boolean to stop player moving camera.
-                //Move This camera to where the other one starts and freeze mouse movement 
-
-                //to addminus 90, freeze this, change lookangle , tilt angle and move pivotcamerathing up
-                /*
-                 * if counter != 1
-                 *      if input == 1
-                 *              addremove 90
-                 *              counter++
-                 *              
-                 *if counter == 1 && input != 1
-                 *      counter = 0
-                */
-                if (states.inNESWcam)
-                {
-                  /*  smoothX = 0;
-                    smoothY = 0;*/
-                    Debug.Log("chicken");
-                    if (!testing1)
-                    {                        
-                        lookAngle = 0;
-
-                       if (lookAngle == 0)
-                        {
-                            testing1 = true;
-                        }
-
-                       
-                    }
-
-                    if (states.inNESWcam)
-                    {
-                       
+                
+                
 
 
-                            //lookAngle -= 90;
-                            //lookAngle = Quaternion.Euler(lookAngle, , Time.deltaTime * 1);
-                            /* Quaternion wantedRotation = Quaternion.Euler(0, lookAngle, 0);
-                             transform.rotation = Quaternion.Lerp(transform.ro, wantedRotation, Time.deltaTime * 3);*/
-                        
-                    }
-
-                    /* if (Input.GetKeyUp(KeyCode.LeftArrow))
-                     {
-                          lookAngle = lookAngle - leftAngle;
-
-
-
-                         from = transform.rotation;
-                         to = Quaternion.Euler(0, -90, 0);
-
-                         transform.rotation = Quaternion.Lerp(from, to, Time.deltaTime * 1);*/
-
-
-                    //lookAngle -= 90;
-                    //lookAngle = Quaternion.Euler(lookAngle, , Time.deltaTime * 1);
-                    /* Quaternion wantedRotation = Quaternion.Euler(0, lookAngle, 0);
-                     transform.rotation = Quaternion.Lerp(transform.ro, wantedRotation, Time.deltaTime * 3);*/
-                    // }
-
-                }
-                else
-                {
+                
+                
+                
                   smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
                     smoothY = Mathf.SmoothDamp(smoothY, v, ref smoothYvelocity, turnSmoothing);
                     testing1 = false;
-                }
+                
                 
 
             }

@@ -14,6 +14,7 @@ namespace SA
         public GameObject Respawn;
         public GameObject character;
 
+       // CameraManager cameraMan2;
 
 
         public GameObject CameraHolder;
@@ -68,6 +69,9 @@ namespace SA
 
         public void Init()
         {
+
+            //statemen = GameObject.FindObjectOfType<StateManager>();
+
             SetupAnimator();
             rigid = GetComponent<Rigidbody>();
             rigid.angularDrag = 999;
@@ -332,6 +336,10 @@ namespace SA
         float cameraTimer = 0f;
         bool timerFin = false;
         bool leftisTrue = false;
+        bool rightisTrue = false;
+        float fuckoffangle = 0f;
+        bool testpleasework = false;
+
         void NESWcamera()
         {
 
@@ -344,110 +352,173 @@ namespace SA
                 if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
                 {
                     inNESWcam = true;
+
                 }
             }
-          
+
 
             if (inNESWcam)
             {
                 //Debug.Log("incam");
                 //delay timer for pressing j
                 cameraTimer += delta;
-               Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, PivotTargetNew.transform.position, Time.deltaTime * speed);
+                Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, PivotTargetNew.transform.position, Time.deltaTime * speed);
                 Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, PivotTargetNew.transform.rotation, Time.deltaTime * speed);
 
-                
-                //stops camera moving
+                /*if (!testpleasework)
+                {
+                    //CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * speed);
+                   
+                    cameran.lookAngle = 0;
+                    if (CameraHolder.transform.localEulerAngles.y == 0)
+                    {
+                        testpleasework = true;
+                        Debug.Log("great");
+                    }
+                    
+                }*/
+            
 
 
                 cameran.stopMovement = true;
 
 
-
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                if (leftisTrue == false)
                 {
-                    leftisTrue = true;
-                    Debug.Log("asstit");
-
-                }
-                
-                if (leftisTrue)
-                {
-                    while (CameraHolder.transform.rotation.y != 90f)
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
-                        CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, 90f, 0f), Time.deltaTime * speed);
+                        leftisTrue = true;
+                        Debug.Log("left");
 
                     }
-                    leftisTrue = false;
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    rightisTrue = true;
+                    Debug.Log("right");
 
                 }
 
-                /* if (leftisTrue)
-                 {
-                     CameraHolder.transform.rotation = Quaternion.Lerp(CameraHolder.transform.rotation, CameraTarget.transform.rotation, Time.deltaTime * speed);
-
-                     if (CameraHolder.transform.rotation == CameraTarget.transform.rotation)
-                     {
-                         leftisTrue = false;
-                     }
-                 }*/
-
-
-
-
-
-
-
-
-
-                if (cameraTimer > 0.5f)
+                if (rightisTrue)
                 {
-                   // Debug.Log("timer");
 
-                    
+                    if (cameran.lookAngle != 90)
+                    {
+                        //CameraHolder.transform.rotation = Quaternion.Euler(0, cameran.lookAngle, 0);
+                        //cameran.lookAngle = 90;
+                        //CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, cameran.lookAngle, 0f), Time.deltaTime * speed);
+                        //cameran.lookAngle += 2;
+
+                    }
+                    else
+                    {
+                        rightisTrue = false;
+                        Debug.Log("rightdone");
+
+
+                        /* if (CameraHolder.transform.rotation.y <= 0.7f || CameraHolder.transform.rotation.y != -0.7132513f)
+                        //if (CameraHolder.transform.rotation ==  )
+                        {
+                            CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, 91f, 0f), Time.deltaTime * speed);
+                           // Debug.Log("rightDeeper");
+                            Debug.Log(CameraHolder.transform.localRotation.y);
+
+
+                        }
+                        else
+                        {
+                            rightisTrue = false;
+                            Debug.Log("rightdone");
+
+                        }*/
+
+                    }
+
+                    if (leftisTrue)
+                    {
+                        /*if (CameraHolder.transform.rotation.y >= -0.707f)
+                        {
+                            CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, -90f, 0f), Time.deltaTime * speed);
+                           Debug.Log(CameraHolder.transform.localRotation.y);
+                        }
+                        else
+                        {
+                            leftisTrue = false;
+                            Debug.Log("LeftDOne");
+
+                        }*/
+
+                    }
+
+                    /* if (leftisTrue)
+                     {
+                         CameraHolder.transform.rotation = Quaternion.Lerp(CameraHolder.transform.rotation, CameraTarget.transform.rotation, Time.deltaTime * speed);
+
+                         if (CameraHolder.transform.rotation == CameraTarget.transform.rotation)
+                         {
+                             leftisTrue = false;
+                         }
+                     }*/
+
+
+
+
+
+
+
+
+
+                    if (cameraTimer > 0.5f)
+                    {
+                        // Debug.Log("timer");
+
+
                         if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
                         {
                             inNESWcam = false;
                             timerFin = true;
                         }
-                    
-                   
-                        
-                }                
-            }
 
-            if (timerFin)
-            {
-                //Debug.Log("timefin");
-                cameraTimer = 0f;
-                Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, Target.transform.position, Time.deltaTime * speed * 5);
-                Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, Target.transform.rotation, Time.deltaTime * speed * 5);
 
-                //Doesnt Accurately go to the correct position
-                if (Pivot.transform.position == Target.transform.position)
-                {
-                    Debug.Log("Bullshit");
-                    cameran.stopMovement = false;
 
-                    timerFin = false;
-
-                }
-                if (Pivot.transform.rotation == Target.transform.rotation)
-                {
-                    Debug.Log("Bullshit2");
-                    cameran.stopMovement = false;
-
-                    timerFin = false;
-
+                    }
                 }
 
+                if (timerFin)
+                {
+                    //Debug.Log("timefin");
+                    cameraTimer = 0f;
+                    Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, Target.transform.position, Time.deltaTime * speed * 5);
+                    Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, Target.transform.rotation, Time.deltaTime * speed * 5);
+
+                    //Doesnt Accurately go to the correct position
+                    if (Pivot.transform.position == Target.transform.position)
+                    {
+                        Debug.Log("Bullshit");
+                        cameran.stopMovement = false;
+
+                        timerFin = false;
+
+                    }
+                    if (Pivot.transform.rotation == Target.transform.rotation)
+                    {
+                        Debug.Log("Bullshit2");
+                        cameran.stopMovement = false;
+
+                        timerFin = false;
+
+                    }
+
+                }
+
+
+
+
+
+
             }
-
-       
-
-
-
-
         }
 
 
