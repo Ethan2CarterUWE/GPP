@@ -81,7 +81,7 @@ namespace SA
                 if (pivot.transform.rotation == target.transform.rotation)
                 {
                     check2 = true;
-                    Debug.Log("check2");
+                   // Debug.Log("check2");
 
                 }
 

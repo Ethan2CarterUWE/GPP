@@ -66,6 +66,7 @@ namespace SA
 
 
         public bool PleaseWork = false;
+        public bool BLOCKED = false;    
 
 
         public void Init()
@@ -133,7 +134,11 @@ namespace SA
 
         private void LateUpdate()
         {
-            NESWcamera();
+            if (!BLOCKED)
+            {
+                NESWcamera();
+
+            }
 
         }
         public void FixedTick(float d)
@@ -334,82 +339,273 @@ namespace SA
         float cameraTimer = 0f;
         bool timerFin = false;
         bool leftisTrue = false;
+        bool upisTrue = false;
+        bool downisTrue = false;
+        bool rightisTrue = false;
+        bool stopitall = false;
+
+        bool north = false;
+        bool east = false;
+        bool south = false;
+        bool west = false;
+
         void NESWcamera()
         {
 
             float degrees = 90;
             Vector3 toop = new Vector3(0, degrees, 0);
-
+           /* if (BLOCKED)
+            {
+                inNESWcam = false;
+            }*/
 
             if (!timerFin)
             {
-                if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
+                if (!BLOCKED)
                 {
-                    inNESWcam = true;
-                }
-            }
-          
-
-            if (inNESWcam)
-            {
-                //Debug.Log("incam");
-                //delay timer for pressing j
-                cameraTimer += delta;
-               Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, PivotTargetNew.transform.position, Time.deltaTime * speed);
-                Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, PivotTargetNew.transform.rotation, Time.deltaTime * speed);
-
-                
-                //stops camera moving
-                
-
-                cameran.stopMovement = true;
-
-                if (!PleaseWork)
-                {
-                    if (cameran.lookAngle != 0)
+                    if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
                     {
-                        cameran.lookAngle = 0;
-                        PleaseWork = true;
+                        inNESWcam = true;
                     }
                 }
-             
+              
+            }
 
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (leftisTrue || rightisTrue || upisTrue || downisTrue)
+            {
+                stopitall = true;
+
+            }
+            else
+            {
+                stopitall = false;
+            }
+
+            if (!BLOCKED)
+            {
+                if (inNESWcam)
                 {
-                    leftisTrue = true;
-                    Debug.Log("asstit");
+                    //Debug.Log("incam");
+                    //delay timer for pressing j
+                    cameraTimer += delta;
+                    Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, PivotTargetNew.transform.position, Time.deltaTime * speed);
+                    Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, PivotTargetNew.transform.rotation, Time.deltaTime * speed);
 
+
+                    //stops camera moving
+
+
+                    cameran.stopMovement = true;
+
+                    if (!PleaseWork)
+                    {
+                        if (cameran.lookAngle != 0)
+                        {
+                            cameran.lookAngle = 0;
+                            PleaseWork = true;
+                        }
+                    }
+
+
+                    if (!stopitall)
+                    {
+                        if (Input.GetKeyDown(KeyCode.LeftArrow))
+                        {
+                            leftisTrue = true;
+                            Debug.Log("left");
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.RightArrow))
+                        {
+                            rightisTrue = true;
+                            Debug.Log("right");
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.UpArrow))
+                        {
+                            upisTrue = true;
+                            Debug.Log("up");
+
+                        }
+                        if (Input.GetKeyDown(KeyCode.DownArrow))
+                        {
+                            downisTrue = true;
+                            Debug.Log("down");
+
+                        }
+                    }
+                   
                 }
+               
                 
                 if (leftisTrue)
                 {
-                    /*if (CameraHolder.transform.rotation.y != 90f)
-                    {
-                        CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, 90f, 0f), Time.deltaTime * speed);
 
-                    }*/
 
-                    if (cameran.lookAngle != -90)
+                    /*if (cameran.lookAngle != -90)
                     {
                         cameran.lookAngle -= 2;
+                    }*/
+                    if (cameran.lookAngle != -90)
+                    {
+                        if (cameran.lookAngle == 0)
+                        {
+                            east = true;
+                        }
+                        else if (cameran.lookAngle == 90)
+                        {
+                            east = true;
+                        }
+                        else if (cameran.lookAngle == 180)
+                        {
+                            east = true;
+                        }
+                        else if (cameran.lookAngle == -180)
+                        {
+                            west = true;
+                        }    
+
                     }
+                    
                     else
                     {
+                        east = false;
+                        west = false;
                         leftisTrue = false;
 
                     }
 
                 }
 
-                /* if (leftisTrue)
-                 {
-                     CameraHolder.transform.rotation = Quaternion.Lerp(CameraHolder.transform.rotation, CameraTarget.transform.rotation, Time.deltaTime * speed);
+                if (rightisTrue)
+                {
 
-                     if (CameraHolder.transform.rotation == CameraTarget.transform.rotation)
-                     {
-                         leftisTrue = false;
-                     }
-                 }*/
+
+                    if (cameran.lookAngle != 90)
+                    {
+                        
+
+                        if (cameran.lookAngle == 180)
+                        {
+                            east = true;
+                        }
+                        if (cameran.lookAngle == -180)
+                        {
+                            west = true;
+                        }
+                        else if (cameran.lookAngle == 0)
+                        {
+                            west = true;
+                        }
+                        else if (cameran.lookAngle == -90)
+                        {
+                            west = true;
+                        }
+                        
+                    }                    
+                    else
+                    {
+
+                        east = false;
+                        west = false;
+                        rightisTrue = false;
+
+                    }
+
+                }
+                if (upisTrue)
+                {
+
+
+                    if (cameran.lookAngle != 0)
+                    {
+                        if (cameran.lookAngle == 90)
+                        {
+                            east = true;
+                        }
+                        else if (cameran.lookAngle == -90)
+                        {
+                            west = true;
+                        }
+                        else if (cameran.lookAngle == 180)
+                        {
+                            east = true;
+                        }
+                        else if (cameran.lookAngle == -180)
+                        {
+                            west = true;
+                        }
+                      /*  else if (cameran.lookAngle == 180 || cameran.lookAngle == - 180)
+                        {
+                            if (cameran.lookAngle == - 180)
+                            {
+                                west = true;
+
+                            }
+                            if (cameran.lookAngle == 180)
+                            {
+                                west = east;
+
+                            }
+                          
+                        }*/
+                            //cameran.lookAngle -= 2;*/
+                    }
+                    else
+                    {
+                        east = false;
+                        west = false;
+
+                        upisTrue = false;
+
+                    }
+
+                }
+
+         
+
+
+                if (downisTrue)
+                {
+
+               
+                     if (cameran.lookAngle != 180 && cameran.lookAngle !=-180 )
+                    {
+                        if (cameran.lookAngle == 0)
+                        {
+                            west = true;
+
+                        }
+                        if (cameran.lookAngle == 90)
+                        {
+                            west = true;
+
+                        }
+                        if (cameran.lookAngle == -90)
+                        {
+                            east = true;
+                        }
+                    }             
+                    else
+                    {
+                        east = false;
+                        west = false;
+                        Debug.Log("fuckoffpart2");
+                        downisTrue = false;
+                    }
+                }
+
+                if (east)
+                {
+                    cameran.lookAngle -= 2;
+                }
+
+                if (west)
+                {
+                    cameran.lookAngle += 2;
+                }
+
+               
 
 
 

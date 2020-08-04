@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace SA
@@ -69,6 +70,7 @@ namespace SA
         private void OnTriggerEnter(Collider other)
         {
             cameraMan.helpmelord = true;
+            stateman.BLOCKED = true;
         }
         private void OnTriggerExit(Collider other)
         {
@@ -106,9 +108,12 @@ namespace SA
                     camHolder.transform.parent = null;
                     maincamera.transform.parent = pivotww.transform;
                     maincamera.GetComponent<RailMover>().enabled = false;
+                    stateman.BLOCKED = false;
                     cameraMan.stopMovement = false;
 
                     cameraMan.helpmelord = false;
+                   
+                    Debug.Log(stateman.BLOCKED);
                     railretur.exitTrue = true;
 
                     //railmove.exitTrue = true;
