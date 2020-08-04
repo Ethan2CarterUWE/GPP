@@ -108,11 +108,11 @@ namespace SA
                     camHolder.transform.parent = null;
                     maincamera.transform.parent = pivotww.transform;
                     maincamera.GetComponent<RailMover>().enabled = false;
-                    stateman.BLOCKED = false;
                     cameraMan.stopMovement = false;
 
                     cameraMan.helpmelord = false;
-                   
+                    stateman.BLOCKED = false;
+
                     Debug.Log(stateman.BLOCKED);
                     railretur.exitTrue = true;
 

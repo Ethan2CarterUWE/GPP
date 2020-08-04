@@ -139,6 +139,11 @@ namespace SA
                 NESWcamera();
 
             }
+            else
+            {
+                inNESWcam = false;
+               // timerFin = true;
+            }
 
         }
         public void FixedTick(float d)
