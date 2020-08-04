@@ -60,13 +60,15 @@ namespace SA
         [HideInInspector] public Rigidbody rigid;
         [HideInInspector] public float delta;
 
-        [HideInInspector] public LayerMask ignoreLayers;
+       // public LayerMask ignoreLayers;
 
         CameraManager cameran;
 
 
         public bool PleaseWork = false;
-        public bool BLOCKED = false;    
+        public bool BLOCKED = false;
+
+        public int Eggs = 0;
 
 
         public void Init()
@@ -78,7 +80,7 @@ namespace SA
             rigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
             gameObject.layer = 8;
-            ignoreLayers = ~(1 << 9);
+            //ignoreLayers = ~(1 << 9);
 
             anim.SetBool("onGround", true);
             prevGround = true;
@@ -109,6 +111,13 @@ namespace SA
                 transform.parent = null;
             }
         }
+
+        private void OnGUI()
+        {
+            GUI.contentColor = Color.yellow;
+            GUI.Label(new Rect(10, 10, 150, 20), "Eggs : " + Eggs);
+        }
+
 
 
         void SetupAnimator()
@@ -776,7 +785,7 @@ namespace SA
 
 
 
-            if(Physics.Raycast(orign,dir,out hit, dis, ignoreLayers))
+            if(Physics.Raycast(orign,dir,out hit, dis))
             {
                 r = true;
                 Vector3 targetPosition = hit.point;

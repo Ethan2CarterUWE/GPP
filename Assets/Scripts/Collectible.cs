@@ -22,6 +22,8 @@ namespace SA
         StateManager states;
         public ParticleSystem PS;
 
+        public bool isitEgg = false;
+
 
         void Start()
         {
@@ -48,10 +50,20 @@ namespace SA
             {
                 //states.doubleJump = true;
 
-                StartCoroutine(collectible(other));
+                if (isitEgg)
+                {
+                    states.Eggs++;
+                    Debug.Log("egged");
+                    Destroy(gameObject);
+                }
+                else;
+                {
+                    StartCoroutine(collectible(other));
 
-                GetComponent<MeshRenderer>().enabled = false;
-                GetComponent<Collider>().enabled = false;
+                    GetComponent<MeshRenderer>().enabled = false;
+                    GetComponent<Collider>().enabled = false;
+                }
+                
             }
         }
 
