@@ -166,16 +166,14 @@ lerp = false;
 
                     if (states.inNESWcam)
                     {
-                        if (Input.GetKeyUp(KeyCode.LeftArrow))
-                        {
-                            lerp = true;
+                       
 
 
                             //lookAngle -= 90;
                             //lookAngle = Quaternion.Euler(lookAngle, , Time.deltaTime * 1);
                             /* Quaternion wantedRotation = Quaternion.Euler(0, lookAngle, 0);
                              transform.rotation = Quaternion.Lerp(transform.ro, wantedRotation, Time.deltaTime * 3);*/
-                        }
+                        
                     }
 
                     /* if (Input.GetKeyUp(KeyCode.LeftArrow))

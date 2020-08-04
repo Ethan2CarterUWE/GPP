@@ -15,6 +15,13 @@ namespace SA
         public GameObject character;
 
 
+
+        public GameObject CameraHolder;
+        public GameObject CameraTarget;
+        public GameObject Pivot;
+        public GameObject Target;
+        public GameObject PivotTargetNew;
+
         [Header("Inputs")]
         public float vertical;
         public float horizontal;
@@ -48,11 +55,15 @@ namespace SA
         public bool camLeft = false;
         public bool camRight = false;
 
+        public int speed = 2;
         [HideInInspector] public Animator anim;
         [HideInInspector] public Rigidbody rigid;
         [HideInInspector] public float delta;
 
         [HideInInspector] public LayerMask ignoreLayers;
+
+        CameraManager cameran;
+
 
 
         public void Init()
@@ -69,7 +80,9 @@ namespace SA
             anim.SetBool("onGround", true);
             prevGround = true;
 
-             healthSave = health;
+            cameran = GameObject.FindObjectOfType<CameraManager>();
+
+            healthSave = health;
 
            doublePS.enableEmission = false;
             fastPS.enableEmission = false;
@@ -115,6 +128,12 @@ namespace SA
                 anim.applyRootMotion = false;
             
         }
+
+        private void LateUpdate()
+        {
+            NESWcamera();
+
+        }
         public void FixedTick(float d)
         {
 
@@ -157,7 +176,6 @@ namespace SA
 
 
                 jumping();
-                NESWcamera();
                 
 
 
@@ -313,27 +331,87 @@ namespace SA
 
         float cameraTimer = 0f;
         bool timerFin = false;
+        bool leftisTrue = false;
         void NESWcamera()
-        {        
-            if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
+        {
+
+            float degrees = 90;
+            Vector3 toop = new Vector3(0, degrees, 0);
+
+
+            if (!timerFin)
             {
-                inNESWcam = true;
+                if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
+                {
+                    inNESWcam = true;
+                }
             }
+          
 
             if (inNESWcam)
             {
                 //Debug.Log("incam");
+                //delay timer for pressing j
                 cameraTimer += delta;
+               Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, PivotTargetNew.transform.position, Time.deltaTime * speed);
+                Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, PivotTargetNew.transform.rotation, Time.deltaTime * speed);
+
+                
+                //stops camera moving
+
+
+                cameran.stopMovement = true;
+
+
+
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    leftisTrue = true;
+                    Debug.Log("asstit");
+
+                }
+                
+                if (leftisTrue)
+                {
+                    while (CameraHolder.transform.rotation.y != 90f)
+                    {
+                        CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, 90f, 0f), Time.deltaTime * speed);
+
+                    }
+                    leftisTrue = false;
+
+                }
+
+                /* if (leftisTrue)
+                 {
+                     CameraHolder.transform.rotation = Quaternion.Lerp(CameraHolder.transform.rotation, CameraTarget.transform.rotation, Time.deltaTime * speed);
+
+                     if (CameraHolder.transform.rotation == CameraTarget.transform.rotation)
+                     {
+                         leftisTrue = false;
+                     }
+                 }*/
+
+
+
+
+
+
+
+
 
                 if (cameraTimer > 0.5f)
                 {
                    // Debug.Log("timer");
 
-                    if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
-                    {
-                        inNESWcam = false;
-                        timerFin = true;
-                    }
+                    
+                        if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
+                        {
+                            inNESWcam = false;
+                            timerFin = true;
+                        }
+                    
+                   
                         
                 }                
             }
@@ -342,18 +420,30 @@ namespace SA
             {
                 //Debug.Log("timefin");
                 cameraTimer = 0f;
-                timerFin = false;
+                Pivot.transform.position = Vector3.Lerp(Pivot.transform.position, Target.transform.position, Time.deltaTime * speed * 5);
+                Pivot.transform.rotation = Quaternion.Lerp(Pivot.transform.rotation, Target.transform.rotation, Time.deltaTime * speed * 5);
+
+                //Doesnt Accurately go to the correct position
+                if (Pivot.transform.position == Target.transform.position)
+                {
+                    Debug.Log("Bullshit");
+                    cameran.stopMovement = false;
+
+                    timerFin = false;
+
+                }
+                if (Pivot.transform.rotation == Target.transform.rotation)
+                {
+                    Debug.Log("Bullshit2");
+                    cameran.stopMovement = false;
+
+                    timerFin = false;
+
+                }
 
             }
 
-            /*if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                camRight = true;
-            }
-            else
-            {
-
-            }*/
+       
 
 
 

@@ -14,6 +14,7 @@ namespace SA
         public bool exitTrue = false;
         public GameObject pivot;
         public GameObject target;
+        public GameObject pivotTargetNew;
 
         public GameObject managerthing;
         public GameObject managerTarget;
@@ -53,18 +54,18 @@ namespace SA
         //FixedUpdate over Update so that the camera does not wobble
         private void LateUpdate()
         {
-            if (splinescr.okEthan)
-            {
+           // if (splinescr.okEthan)
+           // {
                /* managerthing.transform.position = Vector3.Lerp(managerthing.transform.position, managerTarget.transform.position, Time.deltaTime * speed);
                 managerthing.transform.rotation = Quaternion.Lerp(managerthing.transform.rotation, managerTarget.transform.rotation, Time.deltaTime * speed/2);*/
 
-            }
+           // }
 
             Vector3 pos = new Vector3(0.0f, 0.56f, -2.860001f);
             if (exitTrue)
             {
                 pivot.transform.position = Vector3.Lerp(pivot.transform.position, target.transform.position, Time.deltaTime * speed);
-                transform.rotation = Quaternion.Lerp(pivot.transform.rotation, target.transform.rotation, Time.deltaTime * speed);
+               pivot.transform.rotation = Quaternion.Lerp(pivot.transform.rotation, target.transform.rotation, Time.deltaTime * speed);
                 //pivot.transform.rotation = target.transform.rotation;
 
                 // pivot.transform.rotation = Quaternion.Lerp(transform.rotation, new Quaternion.euler (0, 0, 0), Time.deltaTime * speed);

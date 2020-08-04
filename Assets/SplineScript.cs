@@ -84,14 +84,6 @@ namespace SA
                     //COMMENT THIS OUT FOR MOVEMENTSPLINECHECK
                    maincamera.transform.parent = null;
                     camHolder.transform.parent = maincamera.transform;
-                    
-
-
-
-
-
-
-
 
                     cameraMan.lookAngle = -90f;
                     Debug.Log("enabling rail mover");
