@@ -39,6 +39,7 @@ namespace SA
         private float turningTime = 0f;
 
         bool lerp = false;
+        public bool helpmelord = false;
 
 
         public bool stopMovement = false;
@@ -113,8 +114,11 @@ lerp = false;
                 }
                 HandleRotation(d, v, h, targetSpeed);
             }
-          
 
+            if (!helpmelord)
+            {
+                transform.rotation = Quaternion.Euler(0, lookAngle, 0);
+            }
             FollowTarget(d);
 
 

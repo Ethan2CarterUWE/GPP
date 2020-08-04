@@ -65,6 +65,8 @@ namespace SA
         CameraManager cameran;
 
 
+        public bool PleaseWork = false;
+
 
         public void Init()
         {
@@ -358,11 +360,19 @@ namespace SA
 
                 
                 //stops camera moving
-
+                
 
                 cameran.stopMovement = true;
 
-
+                if (!PleaseWork)
+                {
+                    if (cameran.lookAngle != 0)
+                    {
+                        cameran.lookAngle = 0;
+                        PleaseWork = true;
+                    }
+                }
+             
 
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
@@ -373,12 +383,21 @@ namespace SA
                 
                 if (leftisTrue)
                 {
-                    while (CameraHolder.transform.rotation.y != 90f)
+                    /*if (CameraHolder.transform.rotation.y != 90f)
                     {
                         CameraHolder.transform.rotation = Quaternion.Slerp(CameraHolder.transform.rotation, Quaternion.Euler(0f, 90f, 0f), Time.deltaTime * speed);
 
+                    }*/
+
+                    if (cameran.lookAngle != -90)
+                    {
+                        cameran.lookAngle -= 2;
                     }
-                    leftisTrue = false;
+                    else
+                    {
+                        leftisTrue = false;
+
+                    }
 
                 }
 
@@ -408,6 +427,7 @@ namespace SA
                         if (Input.GetKeyDown(KeyCode.J) /* add controller button*/ )
                         {
                             inNESWcam = false;
+                        PleaseWork = false;
                             timerFin = true;
                         }
                     

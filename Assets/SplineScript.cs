@@ -59,14 +59,17 @@ namespace SA
 
         }
 
-      /*  private void OnTriggerEnter(Collider other)
+        /*  private void OnTriggerEnter(Collider other)
+          {
+              if (other.transform.gameObject.tag == "Player")
+              {
+                  Debug.Log("ntered");
+              }
+          }*/
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.gameObject.tag == "Player")
-            {
-                Debug.Log("ntered");
-            }
-        }*/
-
+            cameraMan.helpmelord = true;
+        }
         private void OnTriggerExit(Collider other)
         {
             
@@ -105,6 +108,7 @@ namespace SA
                     maincamera.GetComponent<RailMover>().enabled = false;
                     cameraMan.stopMovement = false;
 
+                    cameraMan.helpmelord = false;
                     railretur.exitTrue = true;
 
                     //railmove.exitTrue = true;
