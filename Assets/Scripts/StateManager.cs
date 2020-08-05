@@ -604,7 +604,6 @@ namespace SA
                     {
                         east = false;
                         west = false;
-                        Debug.Log("fuckoffpart2");
                         downisTrue = false;
                     }
                 }
@@ -656,7 +655,6 @@ namespace SA
                 //Doesnt Accurately go to the correct position
                 if (Pivot.transform.position == Target.transform.position)
                 {
-                    Debug.Log("Bullshit");
                     cameran.stopMovement = false;
 
                     timerFin = false;
@@ -664,7 +662,6 @@ namespace SA
                 }
                 if (Pivot.transform.rotation == Target.transform.rotation)
                 {
-                    Debug.Log("Bullshit2");
                     cameran.stopMovement = false;
 
                     timerFin = false;

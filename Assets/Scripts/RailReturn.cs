@@ -45,7 +45,6 @@ namespace SA
 
             thisTransform = transform;
             lastPosition = thisTransform.position;
-            Debug.Log("fuckoff");
             originalPosition = pivot.transform.position;
             //originalPosition[0] = [0];
             //new Vector3(0, 0.5, -2);
