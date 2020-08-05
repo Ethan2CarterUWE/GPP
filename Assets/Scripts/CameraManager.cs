@@ -15,8 +15,8 @@ namespace SA
 
         public Transform target;
 
-        [HideInInspector] public Transform pivot;
-        [HideInInspector] public Transform camTrans;
+         public Transform pivot;
+        public Transform camTrans;
 
         
         float turnSmoothing = .1f;
@@ -39,7 +39,10 @@ namespace SA
         private float turningTime = 0f;
 
         bool lerp = false;
+        public bool helpmelord = false;
 
+
+        public bool stopMovement = false;
 
         private void Start()
         {
@@ -74,6 +77,8 @@ lerp = false;
          
         }
 
+
+
         public void Init(Transform t)
         {
             target = t;
@@ -88,25 +93,36 @@ lerp = false;
      
         public void Tick(float d)
         {
-            //mouse
-            float h = Input.GetAxis("Mouse X");
-            float v = Input.GetAxis("Mouse Y");
 
-            //controller
-            //float c_h = Input.GetAxis("RightAxis X");
-           // float c_v = Input.GetAxis("RightAxis Y");
-
-            float targetSpeed = mouseSpeed;
-
-            /*if (c_h != 0 || c_v != 0)
+            if (!stopMovement)
             {
-                h = c_h;
-                v = c_v;
-                targetSpeed = controllerSpeed;
-            }*/
+                //mouse
+                float h = Input.GetAxis("Mouse X");
+                float v = Input.GetAxis("Mouse Y");
 
+                //controller
+                float c_h = Input.GetAxis("RightAxis X");
+                float c_v = Input.GetAxis("RightAxis Y");
+
+                float targetSpeed = mouseSpeed;
+
+                if (c_h != 0 || c_v != 0)
+                {
+                    h = c_h;
+                    v = c_v;
+                    targetSpeed = controllerSpeed;
+                }
+                HandleRotation(d, v, h, targetSpeed);
+            }
+
+            if (!helpmelord)
+            {
+                transform.rotation = Quaternion.Euler(0, lookAngle, 0);
+            }
             FollowTarget(d);
-            HandleRotation(d, v, h, targetSpeed);
+
+
+          
         }
 
         void FollowTarget(float d)
@@ -154,16 +170,14 @@ lerp = false;
 
                     if (states.inNESWcam)
                     {
-                        if (Input.GetKeyUp(KeyCode.LeftArrow))
-                        {
-                            lerp = true;
+                       
 
 
                             //lookAngle -= 90;
                             //lookAngle = Quaternion.Euler(lookAngle, , Time.deltaTime * 1);
                             /* Quaternion wantedRotation = Quaternion.Euler(0, lookAngle, 0);
                              transform.rotation = Quaternion.Lerp(transform.ro, wantedRotation, Time.deltaTime * 3);*/
-                        }
+                        
                     }
 
                     /* if (Input.GetKeyUp(KeyCode.LeftArrow))
@@ -187,7 +201,7 @@ lerp = false;
                 }
                 else
                 {
-                   smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
+                  smoothX = Mathf.SmoothDamp(smoothX, h, ref smoothXvelocity, turnSmoothing);
                     smoothY = Mathf.SmoothDamp(smoothY, v, ref smoothYvelocity, turnSmoothing);
                     testing1 = false;
                 }
@@ -204,10 +218,7 @@ lerp = false;
 
             }
 
-            if (lockon)
-            {
-
-            }
+       
 
             //lookangle is the actual angle of the camera, ie add/suubtract 90
             //lookAngle += smoothX * targetSpeed;
