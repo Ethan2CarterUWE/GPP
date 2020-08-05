@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ReturnLevel : MonoBehaviour
-{
 
+public class Finish : MonoBehaviour
+{
     private int previousSceneLoad;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousSceneLoad = SceneManager.GetActiveScene().buildIndex + 2;
-       // Debug.Log(SceneManager.GetActiveScene().buildIndex);
+        previousSceneLoad = SceneManager.GetActiveScene().buildIndex - 2;
+        // Debug.Log(SceneManager.GetActiveScene().buildIndex);
 
     }
 
