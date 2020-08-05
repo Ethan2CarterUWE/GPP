@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class ReturnLevel : MonoBehaviour
+public class returntolevel2 : MonoBehaviour
 {
 
-    private int previousSceneLoad;
+
+
+
+
+
+
+
+    private int nextSceneLoad;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousSceneLoad = SceneManager.GetActiveScene().buildIndex + 2;
-
+        nextSceneLoad = SceneManager.GetActiveScene().buildIndex -2;
     }
 
-    // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(previousSceneLoad);
+        SceneManager.LoadScene(nextSceneLoad);
     }
 }
+
+
+
