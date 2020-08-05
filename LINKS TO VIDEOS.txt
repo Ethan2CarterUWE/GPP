@@ -6,3 +6,9 @@ Follow Camera GPP - https://youtu.be/YYm1Y_wuFx8
 Spline Gameplay Controller GPP - https://youtu.be/xnxLT2eci8E 
 Platforming Sequence GPP - https://youtu.be/yoSxcgnyXbg 
 Combat GPP - https://youtu.be/YJeozpfXwnM 
+
+
+Contact - https://ethan-carter.itch.io/gameprogramming-project/devlog/121597/contact
+
+Role of a GPP - https://ethan-carter.itch.io/gameprogramming-project/devlog/121581/role-of-a-gameplay-programmer
+
